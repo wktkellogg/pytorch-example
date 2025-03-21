@@ -1,0 +1,30 @@
+[project]
+name = "pytorch-example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.2.4",
+    "torch>=2.6.0",
+]
+
+[tool.uv.sources]
+torch = [
+  { index = "torch-gpu-darwin", marker = "platform_system == 'darwin'"},
+  { index = "torch-gpu-cu128", marker = "platform_system == 'linux'"},
+]
+
+[[tool.uv.index]]
+name = "torch-gpu-darwin"
+url = "https://download.pytorch.org/whl/nightly/cpu"
+explicit = true
+
+
+[[tool.uv.index]]
+name = "torch-gpu-cu128"
+url = "https://download.pytorch.org/whl/nightly/cu128"
+explicit = true
+
+[tool.uv]
+prerelease = "allow"
