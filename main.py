@@ -1,4 +1,8 @@
 import torch
+from rich.console import Console
+from rich.text import Text
+
+console = Console()
 
 def get_device():
     device = None
@@ -18,6 +22,5 @@ def get_device():
 
 if __name__ == "__main__":
     device = get_device()
-    print(f"Using device: {device}")
-    x = torch.ones(1, device=device)
-    print (x)
+    console.print(f"Using device: {device}", style="bold green")
+    console.print(torch.ones(1, device=device))
