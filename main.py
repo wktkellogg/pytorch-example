@@ -1,6 +1,8 @@
 import torch
 from rich.console import Console
 from rich.text import Text
+import click
+
 
 console = Console()
 
@@ -20,7 +22,24 @@ def get_device():
         print("No GPU available, using CPU.")
     return device
 
-if __name__ == "__main__":
+@click.group()
+def cli():
+    """A simple CLI application using Click."""
+    pass
+
+@cli.command()
+def show_device():
+    """Displays the current device being used (CPU or GPU)."""
     device = get_device()
-    console.print(f"Using device: {device}", style="bold green")
+    if device.type == 'cuda':
+        text = Text(f"Using CUDA device: {device}", style="bold green")
+    elif device.type == 'mps':
+        text = Text(f"Using Metal Performance Shaders (MPS) device: {device}", style="bold green")
+    else:
+        text = Text("Using CPU", style="bold red")
+    console.print(text)
     console.print(torch.ones(1, device=device))
+
+# Run the CLI
+if __name__ == "__main__":
+    cli()
