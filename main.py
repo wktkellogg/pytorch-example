@@ -6,9 +6,9 @@ def get_device():
         device = torch.device("mps")
     elif torch.cuda.is_available():
         device = torch.cuda.current_device()
-        device_name = torch.cuda.get_device_name(current_device)
+        device_name = torch.cuda.get_device_name(device)
         total_devices = torch.cuda.device_count()
-        print(f"Current CUDA device index: {current_device}")
+        print(f"Current CUDA device index: {device}")
         print(f"Current CUDA device name: {device_name}")
         print(f"Total number of available CUDA devices: {total_devices}")
     else:
